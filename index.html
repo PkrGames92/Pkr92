@@ -1,215 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Trade Hive — VIP Plans</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-<link rel="stylesheet" href="style.css"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TradeHive Demo</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f7f4;
+        margin: 0;
+        padding: 0;
+        color: #333;
+    }
+    header {
+        background-color: #0a7f3f;
+        color: white;
+        padding: 15px;
+        text-align: center;
+    }
+    h1, h2 {
+        margin: 10px 0;
+    }
+    .container {
+        width: 90%;
+        max-width: 900px;
+        margin: auto;
+        padding: 20px;
+    }
+    .card {
+        background: white;
+        padding: 20px;
+        margin: 15px 0;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    label {
+        font-weight: bold;
+        margin-top: 10px;
+        display: block;
+    }
+    input, select, button {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    button {
+        background-color: #0a7f3f;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #095e30;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+    }
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+    th, td {
+        padding: 10px;
+        text-align: center;
+    }
+    .status-pending {
+        color: orange;
+        font-weight: bold;
+    }
+    .status-completed {
+        color: green;
+        font-weight: bold;
+    }
+</style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary">
-  <div class="container">
-    <a class="navbar-brand" href="index.html">Trade Hive</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div id="nav" class="collapse navbar-collapse">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="deposit.html">Deposit</a></li>
-        <li class="nav-item"><a class="nav-link" href="withdraw.html">Withdraw</a></li>
-        <li class="nav-item"><a class="nav-link" href="referral.html">Referral</a></li>
-        <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<header class="container py-5">
-  <div class="p-4 p-md-5 rounded-4" style="background:linear-gradient(135deg,#0b1b2a,#101828 60%,#0b1b2a)">
-    <h1 class="fw-bold mb-2">VIP Investment Plans</h1>
-    <p class="text-secondary mb-0">Create account & get Rs 22 bonus • Duration on all plans: <span class="badge badge-soft">45 days</span></p>
-  </div>
+<header>
+    <h1>TradeHive Demo</h1>
+    <p>Deposit • Withdraw • Buy Plan • History</p>
 </header>
 
-<section class="container pb-5">
-  <div class="grid">
-    <!-- VIP-1 -->
+<div class="container">
+
+    <!-- Buy Plan -->
     <div class="card">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <span class="fw-semibold">VIP-1</span><span class="badge badge-soft">Starter</span>
-      </div>
-      <div class="card-body">
-        <div class="plan-price mb-2">Price: Rs 500</div>
-        <ul class="mb-3 small text-secondary">
-          <li>Daily Profit: Rs 83</li>
-          <li>Total Profit: Rs 3,735</li>
-          <li>Duration: 45 Days</li>
-        </ul>
-        <a href="deposit.html" class="btn btn-brand btn-sm">Buy Now</a>
-        <a href="#" class="btn btn-outline-light btn-sm">Details</a>
-      </div>
+        <h2>Buy Plan</h2>
+        <label>Select VIP Plan:</label>
+        <select id="plan">
+            <option value="VIP-1">VIP-1 ($50)</option>
+            <option value="VIP-2">VIP-2 ($100)</option>
+            <option value="VIP-3">VIP-3 ($200)</option>
+        </select>
+        <button onclick="buyPlan()">Buy Now</button>
+        <p id="buyStatus"></p>
     </div>
 
-    <!-- VIP-2 -->
+    <!-- Deposit -->
     <div class="card">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <span class="fw-semibold">VIP-2</span><span class="badge badge-soft">Basic</span>
-      </div>
-      <div class="card-body">
-        <div class="plan-price mb-2">Price: Rs 1,000</div>
-        <ul class="mb-3 small text-secondary">
-          <li>Daily Profit: Rs 333</li>
-          <li>Total Profit: Rs 14,985</li>
-          <li>Duration: 45 Days</li>
-        </ul>
-        <a href="deposit.html" class="btn btn-brand btn-sm">Buy Now</a>
-        <a href="#" class="btn btn-outline-light btn-sm">Details</a>
-      </div>
+        <h2>Deposit</h2>
+        <label>Amount (USD):</label>
+        <input type="number" id="depositAmount">
+        <label>Transaction ID:</label>
+        <input type="text" id="depositTxId">
+        <button onclick="makeDeposit()">Submit Deposit</button>
     </div>
 
-    <!-- VIP-3 -->
+    <!-- Withdraw -->
     <div class="card">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <span class="fw-semibold">VIP-3</span><span class="badge badge-soft">Value</span>
-      </div>
-      <div class="card-body">
-        <div class="plan-price mb-2">Price: Rs 5,000</div>
-        <ul class="mb-3 small text-secondary">
-          <li>Daily Profit: Rs 1,667</li>
-          <li>Total Profit: Rs 75,015</li>
-          <li>Duration: 45 Days</li>
-        </ul>
-        <a href="deposit.html" class="btn btn-brand btn-sm">Buy Now</a>
-        <a href="#" class="btn btn-outline-light btn-sm">Details</a>
-      </div>
+        <h2>Withdraw</h2>
+        <label>Amount (USD):</label>
+        <input type="number" id="withdrawAmount">
+        <label>Transaction ID:</label>
+        <input type="text" id="withdrawTxId">
+        <button onclick="makeWithdraw()">Submit Withdraw</button>
     </div>
 
-    <!-- VIP-4 -->
+    <!-- Transaction History -->
     <div class="card">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <span class="fw-semibold">VIP-4</span><span class="badge badge-soft">Plus</span>
-      </div>
-      <div class="card-body">
-        <div class="plan-price mb-2">Price: Rs 10,000</div>
-        <ul class="mb-3 small text-secondary">
-          <li>Daily Profit: Rs 3,333</li>
-          <li>Total Profit: Rs 149,985</li>
-          <li>Duration: 45 Days</li>
-        </ul>
-        <a href="deposit.html" class="btn btn-brand btn-sm">Buy Now</a>
-        <a href="#" class="btn btn-outline-light btn-sm">Details</a>
-      </div>
+        <h2>Transaction History</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Transaction ID</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="history">
+                <tr>
+                    <td>Deposit</td>
+                    <td>$100</td>
+                    <td>TX12345</td>
+                    <td class="status-pending">Pending</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
-    <!-- VIP-5 -->
-    <div class="card">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <span class="fw-semibold">VIP-5</span><span class="badge badge-soft">Pro</span>
-      </div>
-      <div class="card-body">
-        <div class="plan-price mb-2">Price: Rs 25,000</div>
-        <ul class="mb-3 small text-secondary">
-          <li>Daily Profit: Rs 8,333</li>
-          <li>Total Profit: Rs 374,985</li>
-          <li>Duration: 45 Days</li>
-        </ul>
-        <a href="deposit.html" class="btn btn-brand btn-sm">Buy Now</a>
-        <a href="#" class="btn btn-outline-light btn-sm">Details</a>
-      </div>
-    </div>
+</div>
 
-    <!-- VIP-6 -->
-    <div class="card">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <span class="fw-semibold">VIP-6</span><span class="badge badge-soft">Pro+</span>
-      </div>
-      <div class="card-body">
-        <div class="plan-price mb-2">Price: Rs 50,000</div>
-        <ul class="mb-3 small text-secondary">
-          <li>Daily Profit: Rs 16,667</li>
-          <li>Total Profit: Rs 750,015</li>
-          <li>Duration: 45 Days</li>
-        </ul>
-        <a href="deposit.html" class="btn btn-brand btn-sm">Buy Now</a>
-        <a href="#" class="btn btn-outline-light btn-sm">Details</a>
-      </div>
-    </div>
+<script>
+function buyPlan() {
+    let plan = document.getElementById("plan").value;
+    document.getElementById("buyStatus").innerHTML = 
+        "✅ " + plan + " purchased successfully (Demo)";
+}
 
-    <!-- VIP-7 -->
-    <div class="card">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <span class="fw-semibold">VIP-7</span><span class="badge badge-soft">Elite</span>
-      </div>
-      <div class="card-body">
-        <div class="plan-price mb-2">Price: Rs 75,000</div>
-        <ul class="mb-3 small text-secondary">
-          <li>Daily Profit: Rs 25,000</li>
-          <li>Total Profit: Rs 1,125,000</li>
-          <li>Duration: 45 Days</li>
-        </ul>
-        <a href="deposit.html" class="btn btn-brand btn-sm">Buy Now</a>
-        <a href="#" class="btn btn-outline-light btn-sm">Details</a>
-      </div>
-    </div>
+function makeDeposit() {
+    let amount = document.getElementById("depositAmount").value;
+    let txId = document.getElementById("depositTxId").value;
+    if(amount && txId){
+        addHistory("Deposit", amount, txId, "Pending");
+        alert("Deposit submitted (Demo)!");
+    } else {
+        alert("Please enter amount and transaction ID.");
+    }
+}
 
-    <!-- VIP-8 -->
-    <div class="card">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <span class="fw-semibold">VIP-8</span><span class="badge badge-soft">Elite+</span>
-      </div>
-      <div class="card-body">
-        <div class="plan-price mb-2">Price: Rs 100,000</div>
-        <ul class="mb-3 small text-secondary">
-          <li>Daily Profit: Rs 33,333</li>
-          <li>Total Profit: Rs 1,499,985</li>
-          <li>Duration: 45 Days</li>
-        </ul>
-        <a href="deposit.html" class="btn btn-brand btn-sm">Buy Now</a>
-        <a href="#" class="btn btn-outline-light btn-sm">Details</a>
-      </div>
-    </div>
+function makeWithdraw() {
+    let amount = document.getElementById("withdrawAmount").value;
+    let txId = document.getElementById("withdrawTxId").value;
+    if(amount && txId){
+        addHistory("Withdraw", amount, txId, "Pending");
+        alert("Withdraw request submitted (Demo)!");
+    } else {
+        alert("Please enter amount and transaction ID.");
+    }
+}
 
-    <!-- VIP-9 -->
-    <div class="card">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <span class="fw-semibold">VIP-9</span><span class="badge badge-soft">Ultra</span>
-      </div>
-      <div class="card-body">
-        <div class="plan-price mb-2">Price: Rs 150,000</div>
-        <ul class="mb-3 small text-secondary">
-          <li>Daily Profit: Rs 55,333</li>
-          <li>Total Profit: Rs 2,489,985</li>
-          <li>Duration: 45 Days</li>
-        </ul>
-        <a href="deposit.html" class="btn btn-brand btn-sm">Buy Now</a>
-        <a href="#" class="btn btn-outline-light btn-sm">Details</a>
-      </div>
-    </div>
+function addHistory(type, amount, txId, status) {
+    let table = document.getElementById("history");
+    let row = table.insertRow();
+    row.insertCell(0).innerHTML = type;
+    row.insertCell(1).innerHTML = "$" + amount;
+    row.insertCell(2).innerHTML = txId;
+    row.insertCell(3).innerHTML = 
+        status === "Pending" ? '<span class="status-pending">Pending</span>' : 
+        '<span class="status-completed">Completed</span>';
+}
+</script>
 
-    <!-- VIP-10 -->
-    <div class="card">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <span class="fw-semibold">VIP-10</span><span class="badge badge-soft">Ultra+</span>
-      </div>
-      <div class="card-body">
-        <div class="plan-price mb-2">Price: Rs 200,000</div>
-        <ul class="mb-3 small text-secondary">
-          <li>Daily Profit: Rs 68,333</li>
-          <li>Total Profit: Rs 3,074,985</li>
-          <li>Duration: 45 Days</li>
-        </ul>
-        <a href="deposit.html" class="btn btn-brand btn-sm">Buy Now</a>
-        <a href="#" class="btn btn-outline-light btn-sm">Details</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="footer">&copy; 2025 Trade Hive. All rights reserved.</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
